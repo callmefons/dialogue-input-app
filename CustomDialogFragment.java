@@ -1,3 +1,19 @@
+private final int REQ_CODE = 100;
+// Create an anonymous implementation of OnClickListener
+private View.OnClickListener voiceListener = new View.OnClickListener() {
+    public void onClick(View v) {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Need to speak");
+        try {
+            startActivityForResult(intent, REQ_CODE);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(context, "Sorry your device not supported", Toast.LENGTH_SHORT).show();
+        }
+    }
+};
+
 @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
